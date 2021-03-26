@@ -1,0 +1,107 @@
+.episodes h3,
+.episodes p {
+  margin: 0;
+}
+.tab {
+  position: fixed;
+  margin: 0;
+  overflow: hidden;
+  background-color: white;
+  top: 0;
+  width: 100%;
+  padding: 1rem;
+}
+
+.tab button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.active-button {
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+.characters-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.characters-info img {
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 0.7rem;
+  border-bottom-left-radius: 0.7rem;
+}
+
+.characters-info article {
+  display: flex;
+  border-radius: 0.7rem;
+  color: white;
+}
+
+.text-semibold {
+  font-weight: 400;
+}
+.text-bolder {
+  font-weight: 800;
+}
+
+.purple-bg {
+  background-color: rebeccapurple;
+}
+
+.b-radius-4\/5 {
+  border-radius: 0.7rem;
+}
+
+.text-gray {
+  color: rgba(128, 128, 128, 0.7);
+}
+
+.text-white {
+  color: white;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+
+.mr-1 {
+  margin-right: 1rem;
+}
+.mr-2 {
+  margin-right: 2rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.mb-4\/5 {
+  margin-bottom: 0.8rem;
+}
+
+.p-2 {
+  padding: 2rem;
+}
+
+.font-size-xs {
+  font-size: 0.85rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+ul {
+  display: flex;
+  list-style-type: none;
+}
