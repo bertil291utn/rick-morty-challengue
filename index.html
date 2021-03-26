@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .p-1 {
+      padding: 1rem;
+    }
+
+    .p-2 {
+      padding: 2rem;
+    }
+
+    .characters-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .w-full {
+      width: 100%;
+    }
+
+    .d-flex {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+
+<body>
+  <ul>
+    <li><button id="characterAction">Characters</button></li>
+    <li><button id="episodeAction">Episodes</button></li>
+  </ul>
+
+  <section id="canvas"> </section>
+
+  <script>
+    let index = 2;
+    let character = true;
+    const characterAction = document.querySelector('#characterAction');
+    const episodeAction = document.querySelector('#episodeAction');
+    const canvasContainer = document.querySelector('#canvas');
+
+
+    characterAction.addEventListener('click', async (e) => {
+      index = 2;
+      character = true;
+      const buttonName = e.target.outerText;
+      canvasContainer.innerHTML = '';
+      const response = await getAPI(character);
+      const { results } = response;
+      const charactersHtml = await displayDOM(results);
+      const characterCont = `<div class="p-1 characters-info id="canva-info"">${charactersHtml}</div>`
+      canvasContainer.innerHTML = characterCont;
+
+    });
+
+    episodeAction.addEventListener('click', async () => {
+      index = 2;
+      character = false;
+      canvasContainer.innerHTML = '';
+      const response = await getAPI(character);
+      const { results } = response;
+      const charactersHtml = await displayDOM(results, character);
+      const characterCont = `<div class="p-1" id="canva-info">${charactersHtml}</div>`
+      canvasContainer.innerHTML = characterCont;
+    });
+
+    async function getAPI(character = true, page = 1) {
+      const resp = await fetch(`https://rickandmortyapi.com/api/${character ? 'character' : 'episode'}/?page=${page}`);
+      return resp.json();
+    }
+
+
+    async function displayDOM(results, character = true) {
+
+      let charactersHtml = '';
+      results.map(elem => {
+        charactersHtml += character ? characterBody(elem) : episodeBody(elem)
+      })
+
+      return charactersHtml;
+    }
+
+    function characterBody(elem) {
+      const { image, name, status } = elem;
+      const charactersHtml = `
+           <article>
+             <header>
+              <img src="${image}" loading="lazy" alt="${name}" width="100">
+             </header>
+             <div>
+               <p>Name: ${name}</p>
+               <p>Status: ${status}</p>
+            </div>
+           </article>
+        `;
+      return charactersHtml;
+    }
+
+    function episodeBody(elem) {
+      const { air_date, name, episode } = elem;
+      const charactersHtml = `
+           <article class="p-2 d-flex">
+              <div>Name: ${name}</div>
+              <div>Air Date: ${air_date}</div>
+              <div>Episode: ${episode}</div>
+           </article>
+        `;
+      return charactersHtml;
+    }
+
+    (async () => {
+      const response = await getAPI();
+      const { results } = response;
+      const charactersHtml = await displayDOM(results);
+      const characterCont = `<div class="p-1 characters-info" id="canva-info">${charactersHtml}</div>`
+      canvasContainer.innerHTML = characterCont;
+
+
+    })();
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+    window.onscroll = async function (ev) {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight + 23) {
+        const response = await getAPI(character, index)
+        const { results } = response;
+        const charactersHtml = await displayDOM(results, character);
+        const canvaInfo = document.querySelector('#canva-info');
+        canvaInfo.innerHTML += charactersHtml
+        index++;
+      }
+    };
+
+
+
+  </script>
+</body>
+
+</html>
