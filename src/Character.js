@@ -4,7 +4,6 @@ export default class Character {
   }
 
   render() {
-    // const { image, name, status } = elem;
     return `
          <article class="purple-bg">
            <header class="mr-1">

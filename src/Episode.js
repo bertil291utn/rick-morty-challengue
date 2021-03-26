@@ -4,7 +4,6 @@ export default class Episode {
   }
 
   render() {
-    // const { air_date, name, episode } = elem;
     return `
            <article class="episodes mb-2 purple-bg b-radius-4/5 p-1">
               <h3 class="text-white mb-4/5">${this.name}</h3>
